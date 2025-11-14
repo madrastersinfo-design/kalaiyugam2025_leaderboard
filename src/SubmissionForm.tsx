@@ -68,8 +68,8 @@ function SubmissionForm() {
             ...prevState,
             [name]: value
         }));
-    };  // const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyjthWzRuXO6H-Ozx49tg5hd0lJE8qMS0XAEs7Di7JGnuFP5SbuclPzwOkvWe30B0Y3_A/exec";
-    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwvIWaMabFvV1aSQg5K4A8t3w0qRyrfgn08j5iQiDFex35Hcl57oRbzkdKDW3MPQED3/exec";
+    };  
+    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby7CSkz1Ib5z3gSH9nuNUj3HMPsoYt2e5tgLS5xYdzPwjRTfa88cN9aEQM1GX3wCbQw/exec";
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();

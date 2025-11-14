@@ -21,7 +21,7 @@ const Leaderboard = () => {
     const [isLoading, setIsLoading] = useState(true);
 
     const GOOGLE_SCRIPT_URL =
-        "https://script.google.com/macros/s/AKfycbwvIWaMabFvV1aSQg5K4A8t3w0qRyrfgn08j5iQiDFex35Hcl57oRbzkdKDW3MPQED3/exec";
+        "https://script.google.com/macros/s/AKfycby7CSkz1Ib5z3gSH9nuNUj3HMPsoYt2e5tgLS5xYdzPwjRTfa88cN9aEQM1GX3wCbQw/exec";
 
     const allowedDays = [15, 16, 17, 18, 19, 20, 21];
 
