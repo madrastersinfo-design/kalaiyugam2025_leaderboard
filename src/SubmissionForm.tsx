@@ -57,7 +57,7 @@ function SubmissionForm() {
         marginBottom: '16px'
     };
 
-  
+
 
 
 
@@ -68,7 +68,7 @@ function SubmissionForm() {
             ...prevState,
             [name]: value
         }));
-    };  
+    };
     const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby7CSkz1Ib5z3gSH9nuNUj3HMPsoYt2e5tgLS5xYdzPwjRTfa88cN9aEQM1GX3wCbQw/exec";
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -150,14 +150,37 @@ function SubmissionForm() {
                             onChange={handleChange}
                             disabled={isLoading}
                         >
-                            <option value="15">Nov 15 -  காந்தள் (Kanthal)</option>
-                            <option value="16">Nov 16 - வாடாமல்லி (Vadamalli)</option>
-                            <option value="17">Nov 17 - செம்பருத்தி (Sembaruthi)</option>
-                            <option value="18">Nov 18 - கனகாம்பரம் (Kanakambaram)</option>
-                            <option value="19">Nov 19 - பாரிஜாதம் (Paarijatham )</option>
-                            <option value="20">Nov 20 - ஆவாரம்பூ (Aavaram )</option>
-                            <option value="21">Nov 21 - தும்பை (Vadamalli)</option>
+                            {(() => {
+                                const options = [];
+                                const today = new Date().getDate(); // actual date number (15–21)
+                                const allowedDays = [15, 16, 17, 18, 19, 20, 21];
+
+                                for (let day of allowedDays) {
+                                    if (day <= today) {
+                                        let label = "";
+
+                                        switch (day) {
+                                            case 15: label = "Nov 15 - காந்தள் (Kanthal)"; break;
+                                            case 16: label = "Nov 16 - வாடாமல்லி (Vadamalli)"; break;
+                                            case 17: label = "Nov 17 - செம்பருத்தி (Sembaruthi)"; break;
+                                            case 18: label = "Nov 18 - கனகாம்பரம் (Kanakambaram)"; break;
+                                            case 19: label = "Nov 19 - பாரிஜாதம் (Paarijatham)"; break;
+                                            case 20: label = "Nov 20 - ஆவாரம்பூ (Aavaram)"; break;
+                                            case 21: label = "Nov 21 - தும்பை (Thumbai)"; break;
+                                        }
+
+                                        options.push(
+                                            <option key={day} value={day.toString()}>
+                                                {label}
+                                            </option>
+                                        );
+                                    }
+                                }
+
+                                return options;
+                            })()}
                         </select>
+
                         <input
                             type="text"
                             name="postLink"
