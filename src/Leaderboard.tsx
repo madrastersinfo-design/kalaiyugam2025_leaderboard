@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import BrandLogo from "./assets/madrasters-logo.svg";
 import TitleLogo from "./assets/kalaiyugam.svg";
 import FlowerLeft from "./assets/mara.png";
@@ -19,6 +20,7 @@ type LeaderboardEntry = {
 const Leaderboard = () => {
     const [leaderboardData, setLeaderboardData] = useState<LeaderboardEntry[]>([]);
     const [isLoading, setIsLoading] = useState(true);
+    const navigate = useNavigate();
 
     const GOOGLE_SCRIPT_URL =
         "https://script.google.com/macros/s/AKfycby7CSkz1Ib5z3gSH9nuNUj3HMPsoYt2e5tgLS5xYdzPwjRTfa88cN9aEQM1GX3wCbQw/exec";
@@ -31,13 +33,13 @@ const Leaderboard = () => {
                 setIsLoading(true);
 
                 const response = await fetch(GOOGLE_SCRIPT_URL);
-                const json = await response.json();
+                const json = await response.json() as { data: LeaderboardEntry[] };
 
                 // 🔥 FIX: Convert validDays & invalidDays to numbers
-                const normalized = json.data.map((u: any) => ({
+                const normalized = json.data.map((u) => ({
                     ...u,
-                    validDays: u.validDays.map((d: any) => Number(d)),
-                    invalidDays: u.invalidDays.map((d: any) => Number(d)),
+                    validDays: u.validDays.map((d) => Number(d)),
+                    invalidDays: u.invalidDays.map((d) => Number(d)),
                 }));
 
                 setLeaderboardData(normalized);
@@ -77,7 +79,7 @@ const Leaderboard = () => {
     if (isLoading) {
         return (
             <div className="page">
-                <div className="background">
+                <div className="background leaderboard-page">
                     <img className="flower-left" src={FlowerLeft} alt="" />
                     <img className="flower-right" src={FlowerRight} alt="" />
                     <img className="brand-logo" src={BrandLogo} alt="" />
@@ -92,11 +94,19 @@ const Leaderboard = () => {
 
     return (
         <div className="page">
-            <div className="background">
+            <div className="background leaderboard-page">
                 <img className="flower-left" src={FlowerLeft} />
                 <img className="flower-right" src={FlowerRight} />
                 <img className="brand-logo" src={BrandLogo} />
                 <img className="title-logo" src={TitleLogo} />
+
+                <button
+                    type="button"
+                    className="leaderboard-nav-button"
+                    onClick={() => navigate('/')}
+                >
+                    Submit Entry 🌸
+                </button>
 
                 <div className="leaderboard-card">
                     <div className="leaderboard-card-header">
@@ -133,9 +143,8 @@ const Leaderboard = () => {
                                                     </span>
 
                                                     <span
-                                                        className={`profile-level level-chip ${
-                                                            displayLevel === 1 ? "level-1" : "level-2"
-                                                        }`}
+                                                        className={`profile-level level-chip ${displayLevel === 1 ? "level-1" : "level-2"
+                                                            }`}
                                                     >
                                                         {displayLevel === 1 ? "Level 01" : "Level 02"}
                                                     </span>
