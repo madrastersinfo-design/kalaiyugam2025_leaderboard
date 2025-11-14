@@ -18,6 +18,20 @@ html, body {
     padding: 24px;
 }
 
+
+
+.streak-display {
+    font-size: 16px;
+    font-weight: 700;
+    color: #dc2626; /* fire red */
+    padding: 6px 10px;
+    border-radius: 10px;
+    background: #fee2e2;
+    border: 2px solid #dc2626;
+}
+
+
+
 /* Card that contains the design (color + bg image live here) */
 .background {
     /* background-image: url('./assets/bg.png'); */
@@ -653,10 +667,48 @@ html, body {
     box-shadow: 0 19px 38px rgba(0, 0, 0, 0.20), 0 15px 12px rgba(0, 0, 0, 0.11);
 }
 
+/* TAB NAVIGATION STYLES */
+.tab-navigation {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin: 20px 0;
+    width: 88%;
+    max-width: 400px;
+    flex-wrap: wrap;
+}
+
+.tab-button {
+    flex: 1;
+    min-width: 140px;
+    padding: 12px 20px;
+    border: 2px solid #B466FF;
+    background: white;
+    color: #B466FF;
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'Pixelify Sans', cursive;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+.tab-button:hover {
+    background: #f3f0ff;
+}
+
+.tab-button.active {
+    background: linear-gradient(135deg, #B466FF, #E579E3);
+    color: white;
+    border-color: transparent;
+    box-shadow: 0 8px 20px rgba(180, 102, 255, 0.3);
+}
+
 /* Desktop Styles - Larger width for leaderboard */
 @media screen and (min-width: 769px) {
-    .background.leaderboard-page {
-        max-width: 650px;
+    .background {
+        max-width: 750px;
     }
 }
 
@@ -705,8 +757,23 @@ html, body {
         padding: 14px 24px;
         font-size: 1.1rem;
         margin-top: 16px;
+        margin-bottom: 8px;
     }
 
+    /* TAB NAVIGATION MOBILE */
+    .tab-navigation {
+        width: 90%;
+        gap: 8px;
+        margin: 16px 0;
+    }
+
+    .tab-button {
+        min-width: 120px;
+        padding: 10px 16px;
+        font-size: 13px;
+    }
+
+    /* LEADERBOARD CARD MOBILE */
     .leaderboard-card {
         width: 90%;
         padding: 20px 20px 24px;
@@ -736,6 +803,16 @@ html, body {
     .leaderboard-card .profile-level {
         font-size: 11px;
         padding: 3px 8px;
+    }
+
+    .leaderboard-card .profile-image-container {
+        width: 40px;
+        height: 40px;
+    }
+
+    .leaderboard-card .profile-image-container img {
+        width: 28px;
+        height: 28px;
     }
 
     .day-status-row {
@@ -779,9 +856,38 @@ html, body {
 
     .textModal {
         font-size: 14px;
+        margin-bottom: 16px !important;
     }
 
     .subTextModal {
+        font-size: 11px;
+    }
+
+    .leaderboard-banner {
+        width: 90%;
+        gap: 12px;
+        margin: 20px 0 16px;
+    }
+
+    .leaderboard-level-card {
+        max-width: 160px;
+        padding: 14px 16px;
+    }
+
+    .leaderboard-level-card__header {
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+
+    .leaderboard-level-card__accent {
+        font-size: 32px;
+    }
+
+    .leaderboard-level-card__label {
+        font-size: 13px;
+    }
+
+    .leaderboard-level-card__sub {
         font-size: 11px;
     }
 }
@@ -794,21 +900,25 @@ html, body {
     .background {
         border-radius: 16px;
         padding-bottom: 16px;
+        max-width: 100%;
     }
 
     .background .brand-logo {
         height: 20px;
         margin-top: 10px;
+        margin-bottom: 4px;
     }
 
     .background .title-logo {
         height: 60px;
         min-width: 100px;
+        margin-top: 4px;
     }
 
     .background .subText {
         font-size: 8px;
         width: 92%;
+        margin-bottom: 8px;
     }
 
     .background input[type=text],
@@ -816,6 +926,7 @@ html, body {
         width: 92%;
         height: 38px;
         padding: 8px 14px;
+        margin: 5px 0;
         font-size: 13px;
     }
 
@@ -825,12 +936,34 @@ html, body {
         padding: 12px 20px;
         font-size: 1rem;
         margin-top: 12px;
+        margin-bottom: 6px;
     }
 
+    /* TAB NAVIGATION MOBILE SMALL */
+    .tab-navigation {
+        width: 92%;
+        gap: 6px;
+        margin: 12px 0;
+        flex-wrap: wrap;
+    }
+
+    .tab-button {
+        min-width: 100px;
+        padding: 8px 12px;
+        font-size: 12px;
+        flex: 1;
+    }
+
+    /* LEADERBOARD CARD MOBILE SMALL */
     .leaderboard-card {
         width: 92%;
         padding: 16px 16px 20px;
         border-radius: 24px;
+        margin-bottom: 20px;
+    }
+
+    .leaderboard-card-header {
+        margin-bottom: 18px;
     }
 
     .leaderboard-title {
@@ -839,10 +972,58 @@ html, body {
 
     .leaderboard-list {
         max-height: 450px;
+        padding-right: 6px;
+    }
+
+    .leaderboard-row {
+        padding: 8px 0;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .leaderboard-card .profile-container {
+        flex: 1;
+        min-width: 200px;
     }
 
     .leaderboard-card .profile-name {
         font-size: 14px;
+    }
+
+    .leaderboard-card .profile-info {
+        gap: 4px;
+    }
+
+    .leaderboard-card .profile-handle,
+    .leaderboard-card .profile-level {
+        font-size: 10px;
+        padding: 2px 6px;
+    }
+
+    .leaderboard-card .profile-image-container {
+        width: 36px;
+        height: 36px;
+    }
+
+    .leaderboard-card .profile-image-container img {
+        width: 24px;
+        height: 24px;
+    }
+
+    .leaderboard-row-accent {
+        flex-direction: column;
+        gap: 8px;
+        min-width: 60px;
+    }
+
+    .leaderboard-row-accent__emoji {
+        font-size: 18px;
+    }
+
+    .day-status-row {
+        gap: 4px;
+        margin-top: 3px;
+        flex-wrap: wrap;
     }
 
     .day-status-box {
@@ -855,6 +1036,16 @@ html, body {
         width: 60px;
     }
 
+    .flower-left {
+        top: 12%;
+        transform: translateX(-20%) rotate(-2deg);
+    }
+
+    .flower-right {
+        top: 12%;
+        transform: translateX(20%) rotate(2deg);
+    }
+
     .success-modal {
         padding: 20px 20px;
         max-width: 280px;
@@ -862,5 +1053,50 @@ html, body {
 
     .success {
         font-size: 20px;
+        margin-bottom: 10px;
+    }
+
+    .textModal {
+        font-size: 13px;
+        margin-bottom: 12px !important;
+    }
+
+    .subTextModal {
+        font-size: 10px;
+    }
+
+    .leaderboard-banner {
+        width: 92%;
+        gap: 10px;
+        margin: 16px 0 12px;
+        flex-wrap: wrap;
+    }
+
+    .leaderboard-level-card {
+        max-width: 140px;
+        padding: 12px 14px;
+    }
+
+    .leaderboard-level-card__header {
+        font-size: 13px;
+        margin-bottom: 8px;
+    }
+
+    .leaderboard-level-card__accent {
+        font-size: 28px;
+    }
+
+    .leaderboard-level-card__label {
+        font-size: 12px;
+    }
+
+    .leaderboard-level-card__sub {
+        font-size: 10px;
+    }
+
+    .leaderboard-card .divider {
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
     }
 }

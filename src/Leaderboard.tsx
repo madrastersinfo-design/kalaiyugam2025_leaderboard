@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import BrandLogo from "./assets/madrasters-logo.svg";
 import TitleLogo from "./assets/kalaiyugam.svg";
 import FlowerLeft from "./assets/mara.png";
 import FlowerRight from "./assets/conc.png";
+import { useNavigate } from "react-router-dom";
 import "./App.css";
 
 type LeaderboardEntry = {
@@ -31,15 +31,13 @@ const Leaderboard = () => {
         const fetchLeaderboard = async () => {
             try {
                 setIsLoading(true);
-
                 const response = await fetch(GOOGLE_SCRIPT_URL);
-                const json = await response.json() as { data: LeaderboardEntry[] };
+                const json = await response.json();
 
-                // 🔥 FIX: Convert validDays & invalidDays to numbers
-                const normalized = json.data.map((u) => ({
+                const normalized = json.data.map((u: any) => ({
                     ...u,
-                    validDays: u.validDays.map((d) => Number(d)),
-                    invalidDays: u.invalidDays.map((d) => Number(d)),
+                    validDays: u.validDays.map((d: any) => Number(d)),
+                    invalidDays: u.invalidDays.map((d: any) => Number(d)),
                 }));
 
                 setLeaderboardData(normalized);
@@ -53,16 +51,6 @@ const Leaderboard = () => {
         fetchLeaderboard();
     }, []);
 
-    /** BADGES */
-    const mapToDisplayLevel = (badge: number): 1 | 2 => {
-        return badge <= 1 ? 1 : 2;
-    };
-
-    const getBadgeAccent = (badge: number): string => {
-        return mapToDisplayLevel(badge) === 1 ? "🌱" : "🌸";
-    };
-
-    /** TICK / X / LATE ICON */
     const getDayStatus = (day: number, user: LeaderboardEntry) => {
         if (user.validDays.includes(day)) {
             return { icon: "✔️", class: "day-success" };
@@ -73,28 +61,15 @@ const Leaderboard = () => {
         return { icon: "❌", class: "day-fail" };
     };
 
-    /** SORT USERS */
-    const sortedUsers = [...leaderboardData].sort((a, b) => b.sortValue - a.sortValue);
+    const sortedUsers = [...leaderboardData].sort((a, b) => b.streak - a.streak);
 
     if (isLoading) {
-        return (
-            <div className="page">
-                <div className="background leaderboard-page">
-                    <img className="flower-left" src={FlowerLeft} alt="" />
-                    <img className="flower-right" src={FlowerRight} alt="" />
-                    <img className="brand-logo" src={BrandLogo} alt="" />
-                    <img className="title-logo" src={TitleLogo} alt="" />
-                    <div className="leaderboard-card loading">
-                        <div className="lds-roller">Loading…</div>
-                    </div>
-                </div>
-            </div>
-        );
+        return <div className="page"><div className="leaderboard-card loading">Loading…</div></div>;
     }
 
     return (
         <div className="page">
-            <div className="background leaderboard-page">
+            <div className="background">
                 <img className="flower-left" src={FlowerLeft} />
                 <img className="flower-right" src={FlowerRight} />
                 <img className="brand-logo" src={BrandLogo} />
@@ -105,7 +80,7 @@ const Leaderboard = () => {
                     className="leaderboard-nav-button"
                     onClick={() => navigate('/')}
                 >
-                    Submit Entry 🌸
+                    ← Back to Submit Form
                 </button>
 
                 <div className="leaderboard-card">
@@ -115,18 +90,20 @@ const Leaderboard = () => {
 
                     <div className="leaderboard-list">
                         {sortedUsers.map((user) => {
-                            const displayLevel = mapToDisplayLevel(user.badge);
 
-                            // Only show number of past days = valid + invalid
-                            const totalDaysToShow =
-                                user.validDays.length + user.invalidDays.length || 1;
+                            const allDays = [...user.validDays, ...user.invalidDays];
+                            const maxUploadedDay =
+                                allDays.length > 0 ? Math.max(...allDays) : allowedDays[0];
+
+                            const daysToShow = allowedDays.filter((d) => d <= maxUploadedDay);
 
                             return (
                                 <div key={user.instaId} className="leaderboard-row-wrapper">
                                     <div className="leaderboard-row">
+
+                                        {/* LEFT SIDE */}
                                         <div className="profile-container">
                                             <div className="profile-info">
-
                                                 <div className="profile-name">{user.fullName}</div>
 
                                                 <div className="profile-tags">
@@ -141,18 +118,11 @@ const Leaderboard = () => {
                                                     >
                                                         @{user.instaId}
                                                     </span>
-
-                                                    <span
-                                                        className={`profile-level level-chip ${displayLevel === 1 ? "level-1" : "level-2"
-                                                            }`}
-                                                    >
-                                                        {displayLevel === 1 ? "Level 01" : "Level 02"}
-                                                    </span>
                                                 </div>
 
-                                                {/* PROGRESS ROW */}
+                                                {/* DAY STATUS */}
                                                 <div className="day-status-row">
-                                                    {allowedDays.slice(0, totalDaysToShow).map((day, index) => {
+                                                    {daysToShow.map((day, index) => {
                                                         const status = getDayStatus(day, user);
                                                         return (
                                                             <span
@@ -167,11 +137,15 @@ const Leaderboard = () => {
                                             </div>
                                         </div>
 
+                                        {/* RIGHT SIDE —🔥 STREAK DISPLAY */}
                                         <div className="leaderboard-row-accent">
-                                            <span className="leaderboard-row-accent__emoji">
-                                                {getBadgeAccent(user.badge)}
-                                            </span>
+                                            {user.streak > 0 && (
+                                                <span className="streak-display">
+                                                    🔥 {user.streak} Streaks
+                                                </span>
+                                            )}
                                         </div>
+
                                     </div>
 
                                     <div className="divider" />
