@@ -583,5 +583,42 @@ html, body {
     align-items: center;
 }
 
+.day-status-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 6px;
+    flex-wrap: wrap;
+}
 
+.day-status-box {
+    padding: 4px 10px;
+    border-radius: 10px;
+    border: 2px solid #e5e7eb;
+    font-size: 12px;
+    font-weight: 600;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
 
+/* Green ✔ */
+.day-success {
+    border-color: #22c55e;
+    background: #dcfce7;
+    color: #166534;
+}
+
+/* Red ❌ */
+.day-fail {
+    border-color: #ef4444;
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+/* Orange ⏰ */
+.day-late {
+    border-color: #f97316;
+    background: #ffedd5;
+    color: #9a3412;
+}

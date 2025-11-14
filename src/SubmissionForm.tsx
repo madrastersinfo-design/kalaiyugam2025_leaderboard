@@ -57,7 +57,7 @@ function SubmissionForm() {
         marginBottom: '16px'
     };
 
-    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyjthWzRuXO6H-Ozx49tg5hd0lJE8qMS0XAEs7Di7JGnuFP5SbuclPzwOkvWe30B0Y3_A/exec";
+  
 
 
 
@@ -68,7 +68,8 @@ function SubmissionForm() {
             ...prevState,
             [name]: value
         }));
-    };
+    };  // const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyjthWzRuXO6H-Ozx49tg5hd0lJE8qMS0XAEs7Di7JGnuFP5SbuclPzwOkvWe30B0Y3_A/exec";
+    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwvIWaMabFvV1aSQg5K4A8t3w0qRyrfgn08j5iQiDFex35Hcl57oRbzkdKDW3MPQED3/exec";
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -83,7 +84,8 @@ function SubmissionForm() {
                 },
                 body: JSON.stringify({
                     ...formData,
-                    timestamp: new Date().toISOString()
+                    timestamp: new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" }),
+
                 })
             });
 
@@ -186,7 +188,6 @@ function SubmissionForm() {
                         <div className="success-content" style={successContentStyles}>
                             <div className="success" style={successTitleStyles}>Submission Successful!</div>
                             <p className="textModal">You did it! Your challenge submission has been received.</p>
-                            <p className="subTextModal">One step closer to becoming a MADX Champion!</p>
                             <p className="subTextModal">Ready for the next challenge? Keep designing!</p>
                         </div>
                     </div>
