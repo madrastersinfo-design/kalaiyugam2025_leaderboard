@@ -84,7 +84,11 @@ function SubmissionForm() {
                 },
                 body: JSON.stringify({
                     ...formData,
-                    timestamp: new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" }),
+                    // timestamp: new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" }),
+                    timestamp: new Date().toLocaleString("sv-SE", {
+                        timeZone: "Asia/Kolkata"
+                    }).replace(" ", "T")
+
 
                 })
             });
